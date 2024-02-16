@@ -18,30 +18,48 @@ namespace OOO_AnimalShop.Window.Forms
         public TovarsForm()
         {
             InitializeComponent();
+            Init();
             InitFlowLayout();
+        }
+
+        private void Init()
+        {
+            using (var db = new AnimalShopContext())
+            {
+                comboBoxManufacture.DisplayMember = nameof(Manufacturer.Name);
+                comboBoxManufacture.Items.AddRange(db.Manufacturers.ToArray());
+                comboBoxManufacture.Items.Insert(0, new Manufacturer()
+                {
+                    Id = -1,
+                    Name = "Все производители"
+                });
+                comboBoxManufacture.SelectedIndex = 0;
+            }
         }
 
         public void InitFlowLayout(bool isCheck = true)
         {
             using (var db = new AnimalShopContext())
             {
-                comboBoxSupplier.DisplayMember = nameof(Supplier.Name);
-                comboBoxSupplier.Items.AddRange(db.Suppliers.ToArray());
-                comboBoxSupplier.Items.Insert(0, "Все производители");
-                comboBoxSupplier.SelectedIndex = 0;
                 var productTypes = db.ProductTypeses
                     .Include(x => x.Supplier)
-                    .Include(x=>x.Manufacturer)
-                    .OrderBy(x=>x.Price)
-                    .ToList();
-                foreach(var item in productTypes)
+                    .Include(x => x.Manufacturer);
+
+                productTypes = isCheck ? productTypes.OrderBy(x => x.Price) : productTypes.OrderByDescending(x => x.Price);
+
+                foreach (var item in productTypes.ToList())
                 {
-                    var tovarView = new TovarView(item);
-                    tovarView.Parent = flowLayoutPanel1;
+                    CreateTovarView(item);
                 }
             }
             Filter();
 
+        }
+
+        private void CreateTovarView(ProductTypes item)
+        {
+            var tovarView = new TovarView(item);
+            tovarView.Parent = flowLayoutPanel1;
         }
 
         private void comboBoxSupplier_SelectedIndexChanged(object sender, EventArgs e)
@@ -51,14 +69,35 @@ namespace OOO_AnimalShop.Window.Forms
 
         private void Filter()
         {
-           
+            if (comboBoxManufacture.SelectedItem == null) return;
+            var id = ((Manufacturer)comboBoxManufacture.SelectedItem).Id;
+            var count = 0;
             foreach(var item in flowLayoutPanel1.Controls)
             {
                 if(item is TovarView tovarView)
                 {
                     var visible = true;
+                    if(id != -1 &&
+                        tovarView.ProductTypes.ManufacturerId != id)
+                    {
+                        visible = false;
+                    }
+                    if(!(string.IsNullOrEmpty(textBoxSearch.Text) ||
+                        tovarView.ProductTypes.Name.Contains(textBoxSearch.Text)))
+                    {
+                        visible = false;
+                    }
 
+                    if (visible)
+                    {
+                        count++;
+                    }
+                    tovarView.Visible = visible;
                 }
+            }
+            using (var db = new AnimalShopContext()) 
+            {
+                labelCountProductTypes.Text = $"{count} из {db.ProductTypeses.Count()}";
             }
         }
 
@@ -70,6 +109,43 @@ namespace OOO_AnimalShop.Window.Forms
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
             Filter();
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            var tovarChangesForm = new TovarChangesForm();
+            if(tovarChangesForm.ShowDialog() == DialogResult.OK)
+            {
+                using (var db = new AnimalShopContext())
+                {
+                    var tovar = tovarChangesForm.productTypes;
+                    tovar.Articul = GeneratorArticul();
+                    db.ProductTypeses.Add(tovar);
+                    db.SaveChanges();
+                    var product = db.ProductTypeses.FirstOrDefault(x => x.Articul == tovar.Articul);
+                    CreateTovarView(product);
+                }
+            }
+        }
+
+        private string GeneratorArticul()
+        {
+            var list = new List<string>() { "a", "b", "c", "d", "e", "f", "g","0","1","2","3","4","5","6","7" };
+            var rnd = new Random();
+            var size = 6;
+            var result = string.Empty;
+            using (var db = new AnimalShopContext()) 
+            {
+                while (result.Length < size)
+                {
+                    result += list[rnd.Next(0, list.Count)];
+                    if (db.ProductTypeses.Any(x=>x.Articul == result))
+                    {
+                        result = string.Empty;
+                    }
+                }
+                return result;
+            }
         }
     }
 }

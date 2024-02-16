@@ -18,17 +18,25 @@ namespace OOO_AnimalShop.Window.Forms
         public TovarView(ProductTypes productTypes)
         {
             InitializeComponent();
-            ProductTypes= productTypes;
+            ProductTypes = productTypes;
+            InitTovarView();
+
+        }
+
+        private void InitTovarView()
+        {
             labelName.Text = ProductTypes.Name;
             labelDesc.Text = ProductTypes.Description;
             labelPrice.Text = ProductTypes.Price.ToString("C2");
-            labelIsActual.Text = ProductTypes.CountInPack == 0 ? "Нет" : "Да";
+            labelCountInPack.Text = ProductTypes.CountInPack == 0 ? "Нет" : "Да";
             labelManufacture.Text = ProductTypes.Manufacturer.Name;
-            //if(ProductTypes.ImagePreview != null)
-            //{
-            //    pictureBox1.Image = Image.FromStream(new MemoryStream(ProductTypes.ImagePreview));
-            //}
-
+            if (!string.IsNullOrEmpty(ProductTypes.ImagePreview))
+            {
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                    "image",
+                    ProductTypes.ImagePreview);
+                pictureBox1.Image = Image.FromFile(path);
+            }
         }
 
         private void butDelete_Click(object sender, EventArgs e)
@@ -37,7 +45,7 @@ namespace OOO_AnimalShop.Window.Forms
             {
                 var productTypes = db.ProductTypeses.FirstOrDefault(x => x.Articul == ProductTypes.Articul);
                 if (productTypes == null) return;
-                var isOrder = db.Orders.Include(x=> x.Products).Any(x=>x.Products.Any(y=>y.ProductTypesArticul == productTypes.Articul));
+                var isOrder = db.Products.Any(y=>y.ProductTypesArticul == productTypes.Articul);
                 if (isOrder)
                 {
                     MessageBox.Show("Вы не можете удалить этот тип товара так как он используется в заказе!!!",
@@ -52,6 +60,26 @@ namespace OOO_AnimalShop.Window.Forms
                     this.Hide();
                 }
             }
+        }
+
+        private void butEdit_Click(object sender, EventArgs e)
+        {
+            using (var db = new AnimalShopContext())
+            {
+                var tovarDB = db.ProductTypeses.FirstOrDefault(x=>x.Articul == ProductTypes.Articul);
+                var tovarChangesForm = new TovarChangesForm(tovarDB);
+                if (tovarChangesForm.ShowDialog() == DialogResult.OK)
+                {
+                    ProductTypes = tovarDB;
+                    db.SaveChanges();
+                    InitTovarView();
+                }
+            }
+        }
+
+        private void labelIsActual_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
