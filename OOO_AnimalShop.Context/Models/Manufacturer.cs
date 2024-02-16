@@ -15,4 +15,5 @@ namespace OOO_AnimalShop.Context.Models
 
         public virtual ICollection<ProductTypes> ProductTypes { get; set; }
     }
+
 }
