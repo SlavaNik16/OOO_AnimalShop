@@ -27,6 +27,7 @@ namespace OOO_AnimalShop.Window.Forms
         {
             using (var db = new AnimalShopContext())
             {
+                productTypesOrder = new Dictionary<ProductTypes, int>();
                 comboBoxManufacture.DisplayMember = nameof(Manufacturer.Name);
                 comboBoxManufacture.Items.AddRange(db.Manufacturers.ToArray());
                 comboBoxManufacture.Items.Insert(0, new Manufacturer()
