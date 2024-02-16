@@ -126,7 +126,6 @@
             this.labelCountInPack.Size = new System.Drawing.Size(159, 74);
             this.labelCountInPack.TabIndex = 1;
             this.labelCountInPack.Text = "Наличие\r\nна складе";
-            this.labelCountInPack.Click += new System.EventHandler(this.labelIsActual_Click);
             // 
             // contextMenuStrip1
             // 

@@ -90,10 +90,10 @@
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 255);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 248);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(2161, 1073);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1859, 881);
             this.flowLayoutPanel1.TabIndex = 5;
             // 
             // comboBoxManufacture
@@ -171,7 +171,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2161, 1328);
+            this.ClientSize = new System.Drawing.Size(1859, 1129);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.textBoxSearch);

@@ -66,7 +66,10 @@ namespace OOO_AnimalShop.Window.Forms
         {
             using (var db = new AnimalShopContext())
             {
-                var tovarDB = db.ProductTypeses.FirstOrDefault(x=>x.Articul == ProductTypes.Articul);
+                var tovarDB = db.ProductTypeses
+                    .Include(x=>x.Manufacturer)
+                    .Include(y=>y.Supplier)
+                    .FirstOrDefault(x=>x.Articul == ProductTypes.Articul);
                 var tovarChangesForm = new TovarChangesForm(tovarDB);
                 if (tovarChangesForm.ShowDialog() == DialogResult.OK)
                 {
@@ -77,9 +80,5 @@ namespace OOO_AnimalShop.Window.Forms
             }
         }
 
-        private void labelIsActual_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

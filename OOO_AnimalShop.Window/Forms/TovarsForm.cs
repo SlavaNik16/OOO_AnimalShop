@@ -45,8 +45,9 @@ namespace OOO_AnimalShop.Window.Forms
                     .Include(x => x.Supplier)
                     .Include(x => x.Manufacturer);
 
-                productTypes = isCheck ? productTypes.OrderBy(x => x.Price) : productTypes.OrderByDescending(x => x.Price);
+                productTypes = isCheck ? productTypes.OrderByDescending(x => x.Price) : productTypes.OrderBy(x => x.Price);
 
+                flowLayoutPanel1.Controls.Clear();
                 foreach (var item in productTypes.ToList())
                 {
                     CreateTovarView(item);
@@ -103,7 +104,7 @@ namespace OOO_AnimalShop.Window.Forms
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Filter();
+            InitFlowLayout(checkBoxSort.Checked);
         }
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
@@ -122,7 +123,10 @@ namespace OOO_AnimalShop.Window.Forms
                     tovar.Articul = GeneratorArticul();
                     db.ProductTypeses.Add(tovar);
                     db.SaveChanges();
-                    var product = db.ProductTypeses.FirstOrDefault(x => x.Articul == tovar.Articul);
+                    var product = db.ProductTypeses
+                        .Include(x => x.Manufacturer)
+                        .Include(y => y.Supplier)
+                        .FirstOrDefault(x => x.Articul == tovar.Articul);
                     CreateTovarView(product);
                 }
             }
