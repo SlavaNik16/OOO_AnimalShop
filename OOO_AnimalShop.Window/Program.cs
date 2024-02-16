@@ -1,8 +1,5 @@
 ﻿using OOO_AnimalShop.Window.Forms;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OOO_AnimalShop.Window
