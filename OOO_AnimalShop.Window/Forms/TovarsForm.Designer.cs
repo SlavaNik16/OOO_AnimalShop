@@ -38,7 +38,7 @@
             this.checkBoxSort = new System.Windows.Forms.CheckBox();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonOrder = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -155,24 +155,25 @@
             this.buttonAdd.UseVisualStyleBackColor = false;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // button2
+            // buttonOrder
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(189)))), ((int)(((byte)(64)))));
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
-            this.button2.Location = new System.Drawing.Point(624, 126);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(159, 54);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Заказы";
-            this.button2.UseVisualStyleBackColor = false;
+            this.buttonOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(189)))), ((int)(((byte)(64)))));
+            this.buttonOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
+            this.buttonOrder.Location = new System.Drawing.Point(624, 126);
+            this.buttonOrder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonOrder.Name = "buttonOrder";
+            this.buttonOrder.Size = new System.Drawing.Size(159, 54);
+            this.buttonOrder.TabIndex = 11;
+            this.buttonOrder.Text = "Заказы";
+            this.buttonOrder.UseVisualStyleBackColor = false;
+            this.buttonOrder.Visible = false;
             // 
             // TovarsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1859, 1129);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonOrder);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.checkBoxSort);
@@ -204,6 +205,6 @@
         private System.Windows.Forms.CheckBox checkBoxSort;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonOrder;
     }
 }

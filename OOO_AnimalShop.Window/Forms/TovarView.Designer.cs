@@ -35,13 +35,13 @@
             this.labelManufacture = new System.Windows.Forms.Label();
             this.labelPrice = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.labelCountInPack = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.AddOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.butEdit = new System.Windows.Forms.Button();
             this.butDelete = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -116,6 +116,17 @@
             this.panel1.Size = new System.Drawing.Size(231, 186);
             this.panel1.TabIndex = 2;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
+            this.label1.Location = new System.Drawing.Point(36, 10);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(168, 74);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Наличие\r\nна складе:";
+            // 
             // labelCountInPack
             // 
             this.labelCountInPack.AutoSize = true;
@@ -133,13 +144,14 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AddOrderToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(226, 36);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(241, 69);
             // 
             // AddOrderToolStripMenuItem
             // 
             this.AddOrderToolStripMenuItem.Name = "AddOrderToolStripMenuItem";
-            this.AddOrderToolStripMenuItem.Size = new System.Drawing.Size(225, 32);
+            this.AddOrderToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
             this.AddOrderToolStripMenuItem.Text = "Добавить в заказ";
+            this.AddOrderToolStripMenuItem.Click += new System.EventHandler(this.AddOrderToolStripMenuItem_Click);
             // 
             // butEdit
             // 
@@ -178,22 +190,12 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
-            this.label1.Location = new System.Drawing.Point(36, 10);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(168, 74);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Наличие\r\nна складе:";
-            // 
             // TovarView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.butDelete);
             this.Controls.Add(this.butEdit);
             this.Controls.Add(this.panel1);

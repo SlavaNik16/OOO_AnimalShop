@@ -15,6 +15,7 @@ namespace OOO_AnimalShop.Window.Forms
     public partial class TovarView : UserControl
     {
         public ProductTypes ProductTypes { get; set; }
+        public event Action<ProductTypes> ProductTypesAddOrder;
         public TovarView(ProductTypes productTypes)
         {
             InitializeComponent();
@@ -80,5 +81,9 @@ namespace OOO_AnimalShop.Window.Forms
             }
         }
 
+        private void AddOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProductTypesAddOrder?.Invoke(ProductTypes);
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace OOO_AnimalShop.Window.Forms
 {
     public partial class TovarsForm : Form
     {
+        private Dictionary<ProductTypes, int> productTypesOrder;
         public TovarsForm()
         {
             InitializeComponent();
@@ -61,6 +62,20 @@ namespace OOO_AnimalShop.Window.Forms
         {
             var tovarView = new TovarView(item);
             tovarView.Parent = flowLayoutPanel1;
+            tovarView.ProductTypesAddOrder += TovarView_ProductTypesAddOrder;
+        }
+
+        private void TovarView_ProductTypesAddOrder(ProductTypes tovar)
+        {
+            if(productTypesOrder.TryGetValue(tovar, out var count))
+            {
+                productTypesOrder[tovar] = ++count;
+            }
+            else
+            {
+                productTypesOrder.Add(tovar, 1);
+            }
+            buttonOrder.Visible = true;
         }
 
         private void comboBoxSupplier_SelectedIndexChanged(object sender, EventArgs e)
