@@ -1,6 +1,30 @@
+Задание
+---
+Магазин для животных
+
+Автор
+---
+Николаев Вячеслав Алексеевич ИП-20-3
+
 Схема БД
 ---
 ![image](https://github.com/SlavaNik16/OOO_AnimalShop/assets/70444635/593ed833-e587-4a5f-8d46-985b5c16a746)
+---
+Диаграмма последовательности для прецендента авторизация
+---
+```mermaid
+sequenceDiagram
+actor U as User
+participant UI
+participant CB as Code Behind
+participant DB as Database
+U->>UI:ввод авторизационных данных
+UI->>CB:передача данных
+CB->>CB:валидация
+CB->>DB:поиск пользователя
+DB-->>CB:результат поиска
+CB->>UI:сообщение об успешности
+```
 ---
 Скрипт БД
 ---
